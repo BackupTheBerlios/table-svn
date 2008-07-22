@@ -1,0 +1,16 @@
+
+To do any manipulation in this hierarchy, do first
+------------
+source build.env
+
+
+In order to compile everything, do
+------------
+(source compile.env;cd src;make)
+
+
+To create packages for distribution, for example
+------------
+sh package-debian.sh
+sudo dpkg -i table-$VERSION-$DEBVERSION.deb
+

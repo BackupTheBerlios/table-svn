@@ -1,0 +1,41 @@
+Read until CR or LF.  Check wether LF/CR (oposite) in front or behind.
+We now know rsep1 and rsep2.  In the following, 'line' is thereby defined.
+
+Read first line and have a count for each character code encountered.
+
+Try to read another line.
+If its empty or eof encountered set n_tail accordingly.
+Otherwise compare each of its character code counts with previous line.
+If there is one match with a prefered delimiter,
+then we know the delimiter.
+If there are more matches of prefered delimiters,
+then remember each and repeat for yet a line until only one matches.
+If no prefered delimiters matches then use non-prefered,
+using same strategy as with prefered delimiter character codes.
+If no character code counts matches at all the give up.
+
+The above is done for maximum the ten first lines only.
+When found we seek to the end of file and verify the last line.
+
+On this version the pad character is now set to SPC.
+
+The format analyzer is done on each field of the first line.
+Then on the second and so on.
+A fields format is set to the topmost matching in the following list.
+
+"%d"
+"%f"
+"%e"
+"%s" (" in string as "")
+"%s" (" escaped by '\')
+
+The same ones but with single quotes.
+The same ones but with no quotes.
+
+We do this on the ten first lines and the last one too.
+After that we know the format of the table-file.
+
+The whole file is read line by line processing it as the known format.
+Each line that does not match this format is discarded
+but the rest are output in the desired output format.
+

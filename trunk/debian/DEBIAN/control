@@ -1,0 +1,11 @@
+Package: table
+Version: 0.0.0-1
+Section: base
+Priority: optional
+Architecture: i386
+Installed-Size: 1024
+Maintainer: Christian Oien <cso@freesurf.fr>
+Description: The table tool formats table files so that the content may be
+ manipulated by standard UNIX tools like join and sort.  It may also
+ simply analyze or extract table data from a maximum variety of file types.
+

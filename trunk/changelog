@@ -1,0 +1,5 @@
+table (0.0-1)
+
+  * Made Debian package lintian clean.
+
+-- Christian Oien <cso@freesurf.fr>

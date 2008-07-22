@@ -1,0 +1,15 @@
+VERSION=@VERSION@
+DEBVERSION=${DEBVERSION:-"1_i386"}
+
+mkdir -p ian/usr/bin
+cp src/table ian/usr/bin/
+mkdir -p ian/usr/share/{doc/table,man/man1}
+gzip -c changelog >ian/usr/share/doc/table/changelog.gz
+gzip -c debian/changelog >ian/usr/share/doc/table/changelog.Debian.gz
+gzip -c src/table.1 >ian/usr/share/man/man1/table.1.gz
+cp debian/copyright ian/usr/share/doc/table/copyright
+mkdir -p ian/DEBIAN
+cp debian/DEBIAN/control ian/DEBIAN/
+
+fakeroot dpkg-deb -b ian && mv ian.deb table_$VERSION-$DEBVERSION.deb
+

@@ -1,0 +1,79 @@
+.TH table 1
+.SH NAME
+table \- format table
+.SH SYNOPSIS
+.TP
+.B table
+[-chloq] [-g N] [file] [-g N] [file] ...
+.SH DESCRIPTION
+Without any options gives one line of table information for each file,
+or stdin if no file is given.  Each input file is scanned in order to
+find field(column) separator and record(row) separator.
+.P
+By default table uses a canonical format but may interpret a maximum
+of input formats.  When more files are given table operates like
+paste(1) except that the input files may be in various formats.
+The prefered (canonical) format of table is the HT tab character
+(ascii character number 9) as field separator and a simple
+LF newline character (ascii character number 10) as row separator.
+Various output formats may be used instead, for example
+the CSV format as specified in RFC 4180.
+.P
+table follows the unix way of doing things in being specialized
+on one thing and having an open interface suitable for connecting
+it with other tools.  The unix tools like cut(1), sort(1) and
+join(1) all operate on tables in different ways and do not
+specialize themselves on the format.  It may for example be
+impossible to make them operate directly on CSV files.
+.SH OPTIONS
+.TP
+.B \-c
+Concatenate tables, operates similarly to paste(1).
+.TP
+.B \-g N
+Grab the Nth table, accepting gibberish in between each table in the file.
+Use argument 0 combined with the -l switch in order to list all tables
+discovered.
+.TP
+.B \-h
+Keep headers if present.  By default table removes any header line when it
+understands for shure that it is not a data line like the remaining lines.
+.TP
+.B \-H
+Add a header line if none is present.
+.TP
+.B \-o T
+Format output according to type T.  Type may be one of "0" for NUL as field
+separator, "a" for ascii using RS and US characters, "c" for CSV as
+specified in RFC 4180. 
+.TP
+.B \-l
+Long listing.  In case a -c is also given this options is a no-op.
+Otherwise, unless -q is given, table will with the -l option give a longer
+listing of the table format.  The longer listing in addition lists
+number of rows that contain at least one field of format uncommon for
+the respective column.  Following this number is the
+format most commonly observed for each field.
+.TP
+.B \-s
+Do more sophisticated input manipulation.  By default table only support
+input of single-character field delimiter a possible (may be same as
+delimiter character) padding character and newline as
+record delimiter.  The -s switch will invoke "drivers" for various
+input formats in order of increasing "complexity" (driver parameter).
+.TP
+.B \-q
+Outputs nothing.  The exit status will contain the count of input files
+that was not understood to contain tables.  Note that if an -l was given
+the requirement for a file to not be counted is that no rows has
+any field with uncommon format.
+
+.SH "SEE ALSO"
+cut(1), paste(1), sort(1), join(1), RFC 4180.
+.SH BUGS
+Sopport for any sophisticated input formats are missing;
+for example html, excel, sql-inserts (from a db dump)
+and xml(best-guess structure).  This means that the -s option
+is doing nothing in this implementation.  Also,
+the grab switch is not implemented.
+
